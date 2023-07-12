@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link , useHistory} from 'react-router-dom';
 
 import { useContext } from 'react';
 
@@ -9,11 +9,14 @@ const MainNavigation = () => {
 
   const ctx = useContext(AuthContext)
 
+  const history = useHistory()
+
   const isLoggedIn = ctx.isLoggedIn 
 
   const logOutButton = (e) => {
       e.preventDefault()
       ctx.logOut()
+      history.replace('/auth')
   }
 
   return (
