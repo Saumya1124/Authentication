@@ -26,6 +26,38 @@ const AuthForm = () => {
 
     if(isLogin){
 
+      fetch(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDQrmC1vNM9oGEiMumJCX2hCvhUxLJg9qs',
+        {
+          method : 'POST',
+          body : JSON.stringify({
+            email : enteredEmail,
+            password : enteredPassword,
+            returnSecureToken : true
+          }),
+          headers : {
+            'Content-Type' : 'applicaton/json'
+          }
+        }
+      ).then(res => {
+
+        setIsLoading(false)
+
+        if(res.ok){
+
+          return res.json().then(data => {
+            console.log(data)
+          })
+            
+        } 
+        else{
+          return res.json().then(data => {
+            let errorMessage = 'Authentication failed !';
+            alert(errorMessage)
+          })
+        }
+      })
+
     }
     else{
       fetch(
@@ -44,7 +76,7 @@ const AuthForm = () => {
         }
  
       ).then(res => {
-        
+
         setIsLoading(false)
 
         if(res.ok){
